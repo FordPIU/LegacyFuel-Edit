@@ -1,14 +1,3 @@
-function GetFuel(vehicle)
-	return Entity(vehicle).state.fuel or 50
-end
-
-function SetFuel(vehicle, fuel)
-	if type(fuel) == 'number' and fuel >= 0 and fuel <= 100 then
-		SetVehicleFuelLevel(vehicle, fuel + 0.0)
-		TriggerServerEvent("LegacyFuel-SetEntityFuelState", NetworkGetNetworkIdFromEntity(vehicle), fuel)
-	end
-end
-
 function LoadAnimDict(dict)
 	if not HasAnimDictLoaded(dict) then
 		RequestAnimDict(dict)

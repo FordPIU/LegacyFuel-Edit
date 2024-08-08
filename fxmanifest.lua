@@ -16,7 +16,3 @@ server_scripts {
 	'config.lua',
 	'source/fuel_server.lua'
 }
-
-exports {
-	'GetFuel'
-}
