@@ -11,7 +11,7 @@ AddEventHandler('fuel:startFuelUpTick', function(pumpObject, ped, vehicle)
 		Citizen.Wait(1000)
 
 		local currentFuel = GetVehicleFuelLevel(vehicle)
-		local fuelToAdd = 0.1
+		local fuelToAdd = 1.0
 
 		if not pumpObject then
 			if GetAmmoInPedWeapon(ped, 883325847) - fuelToAdd * 100 >= 0 then
@@ -125,12 +125,12 @@ Citizen.CreateThread(function()
 		local v = GetVehiclePedIsIn(PlayerPedId(), false)
 
 		if DoesEntityExist(v) then
-			print(
+			--[[print(
 				GetVehicleFuelLevel(v),
 				GetVehicleHandlingFloat(v, "CHandlingData", "fPetrolTankVolume"),
 				GetFuelAsPercent(v),
 				GetVehicleHandlingFloat(v, "CHandlingData", "fPetrolConsumptionRate")
-			)
+			)]]
 		end
 	end
 end)
