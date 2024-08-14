@@ -1,8 +1,10 @@
 SetFuelConsumptionState(true)
-SetFuelConsumptionRateMultiplier(16.0)
+SetFuelConsumptionRateMultiplier(200.0)
+--SetFuelConsumptionRateMultiplier(200.0)
 
 local isFueling = false
 local ShutOffPump = false
+local lastFuel = {}
 
 AddEventHandler('fuel:startFuelUpTick', function(pumpObject, ped, vehicle)
 	local maxFuel = GetVehicleHandlingFloat(vehicle, "CHandlingData", "fPetrolTankVolume")
@@ -11,7 +13,7 @@ AddEventHandler('fuel:startFuelUpTick', function(pumpObject, ped, vehicle)
 		Citizen.Wait(1000)
 
 		local currentFuel = GetVehicleFuelLevel(vehicle)
-		local fuelToAdd = 1.0
+		local fuelToAdd = 0.75
 
 		if not pumpObject then
 			if GetAmmoInPedWeapon(ped, 883325847) - fuelToAdd * 100 >= 0 then
@@ -131,6 +133,15 @@ Citizen.CreateThread(function()
 				GetFuelAsPercent(v),
 				GetVehicleHandlingFloat(v, "CHandlingData", "fPetrolConsumptionRate")
 			)]]
+			
+			if lastFuel[v] ~= nil then
+				if GetVehicleFuelLevel(v) - lastFuel[v] > 5 then
+					SetVehicleFuelLevel(v, lastFuel[v])
+					print("Fuel reset detected")
+				end
+			end
+			
+			lastFuel[v] = GetVehicleFuelLevel(v)
 		end
 	end
 end)
