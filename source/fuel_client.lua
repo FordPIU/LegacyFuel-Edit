@@ -124,7 +124,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Wait(1000)
-		local v = GetVehiclePedIsIn(PlayerPedId(), false)
+		local v = GetVehiclePedIsIn(PlayerPedId(), true)
 
 		if DoesEntityExist(v) then
 			--[[print(
@@ -133,14 +133,14 @@ Citizen.CreateThread(function()
 				GetFuelAsPercent(v),
 				GetVehicleHandlingFloat(v, "CHandlingData", "fPetrolConsumptionRate")
 			)]]
-			
+
 			if lastFuel[v] ~= nil then
 				if GetVehicleFuelLevel(v) - lastFuel[v] > 5 then
 					SetVehicleFuelLevel(v, lastFuel[v])
 					print("Fuel reset detected")
 				end
 			end
-			
+
 			lastFuel[v] = GetVehicleFuelLevel(v)
 		end
 	end
